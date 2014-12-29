@@ -32,6 +32,32 @@ enum FormRowType {
     case DateAndTime
     case MultipleSelector
     case MultilineText
+  
+    func classForRowType() -> FormBaseCell.Type {
+        switch self {
+        case .Text, .Number, .NumbersAndPunctuation, .Decimal,
+        .Name, .Phone, .URL, .Twitter, .NamePhone, .Email, .ASCIICapable,
+        .Password, .MultilineText:
+            return FormTextFieldCell.self
+        case .Button:
+            return FormButtonCell.self
+        case .BooleanSwitch:
+            return FormSwitchCell.self
+        case .BooleanCheck:
+            return FormCheckCell.self
+        case .SegmentedControl:
+            return FormSegmentedControlCell.self
+        case .Picker:
+            return FormPickerCell.self
+        case .Date, .Time, .DateAndTime:
+            return FormDateCell.self
+        case .MultipleSelector:
+            return FormSelectorCell.self
+        case .Unknown:
+            assert(false, "Error: Unknown cell type")
+            return FormTextFieldCell.self
+        }
+    }
 }
 
 typealias TitleFormatter = (NSObject) -> String!
